@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed de Publicaciones</title>
+    <link rel="stylesheet" href="styles/publicacion.css">
+    <style>
+        .feed-container {
+            max-width: 600px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+        }
+        .post-card {
+            background: #fff0f6;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+            padding: 1.5em 2em;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f8c2d4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ad1457;
+            font-size: 1.3em;
+        }
+        .post-media img, .post-media video {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 0.5em;
+        }
+        .post-tags {
+            color: #e91e63;
+            font-size: 0.95em;
+        }
+        .post-footer {
+            display: flex;
+            gap: 1.5em;
+            align-items: center;
+            font-size: 0.95em;
+            color: #ad1457;
+        }
+        .like-btn {
+            background: none;
+            border: none;
+            color: #e91e63;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Feed de Publicaciones</h1>
+    <div class="feed-container">
+        <!-- Ejemplo de publicación -->
+        <div class="post-card">
+            <div class="post-header">
+                <div class="avatar">A</div>
+                <div>
+                    <div><strong>@ana_pets</strong></div>
+                    <div style="font-size:0.9em; color:#ad1457;">Hace 2 horas</div>
+                </div>
+            </div>
+            <div class="post-media">
+                <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=400&q=80" alt="Mascota feliz">
+            </div>
+            <div class="post-content">
+                ¡Conocí a este perrito adorable hoy en el parque! 🐶💖
+            </div>
+            <div class="post-tags">
+                #mascotas #parque #felicidad
+            </div>
+            <div class="post-footer">
+                <button class="like-btn">❤️ 12</button>
+                <span>3 comentarios</span>
+                <span>Ubicación: Parque Central</span>
+            </div>
+        </div>
+        <!-- Puedes duplicar el bloque .post-card para más publicaciones -->
+        <div class="post-card">
+            <div class="post-header">
+                <div class="avatar">M</div>
+                <div>
+                    <div><strong>@mario_catlover</strong></div>
+                    <div style="font-size:0.9em; color:#ad1457;">Hace 10 minutos</div>
+                </div>
+            </div>
+            <div class="post-media">
+                <video controls src="https://www.w3schools.com/html/mov_bbb.mp4" style="max-height:200px;"></video>
+            </div>
+            <div class="post-content">
+                ¡Mi gato aprendió un nuevo truco! 😺✨
+            </div>
+            <div class="post-tags">
+                #gatos #trucos #diversión
+            </div>
+            <div class="post-footer">
+                <button class="like-btn">❤️ 7</button>
+                <span>1 comentario</span>
+                <span>Ubicación: Casa</span>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/feed.js"></script>
+</body>
+</html>
