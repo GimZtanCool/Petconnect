@@ -1,35 +1,31 @@
-let token = ""
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-function login() {
-  const email = document.getElementById("email").value
-  const password = document.getElementById("password").value
+  const email = document.querySelector('input[type="email"]').value.trim();
+  const password = document.querySelector('input[type="password"]').value;
 
-  fetch("http://localhost:3000/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => res.json())
-    .then(data => {
-      token = data.token
-      alert("Login exitoso")
-    })
-    .catch(() => alert("Error al iniciar sesión"))
-}
+  if (!email || !password) {
+    document.getElementById("errorMsg").textContent = "Todos los campos son obligatorios.";
+    return;
+  }
 
-function getServices() {
-  fetch("http://localhost:3000/api/services", {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-    .then(res => res.json())
-    .then(data => {
-      const ul = document.getElementById("services")
-      ul.innerHTML = ""
-      data.forEach(s => {
-        const li = document.createElement("li")
-        li.textContent = `${s.title} - ${s.type}`
-        ul.appendChild(li)
-      })
-    })
-    .catch(() => alert("Acceso denegado"))
-}
+  try {
+    const res = await fetch("http://20.49.48.222:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      alert("🎉 Inicio de sesión exitoso");
+      window.location.href = "index.html"; // o dashboard.html
+    } else {
+      document.getElementById("errorMsg").textContent = result.error || "Credenciales inválidas.";
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("errorMsg").textContent = "Error de red o del servidor.";
+  }
+});

@@ -2,20 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>PetConnect</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar sesión - PetConnect</title>
+  <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
-  <h1>🐾 PetConnect</h1>
-  <input type="email" id="email" placeholder="Correo">
-  <input type="password" id="password" placeholder="Contraseña">
-  <button onclick="login()">Entrar</button>
-
-  <hr>
-
-  <button onclick="getServices()">Ver servicios</button>
-  <ul id="services"></ul>
-
+  <section class="login-container">
+    <h1>Bienvenido a <span>PetConnect</span> 🐾</h1>
+    <form id="loginForm">
+      <input type="email" placeholder="Correo electrónico" required />
+      <input type="password" placeholder="Contraseña" required />
+      <button type="submit">Iniciar sesión</button>
+      <p id="errorMsg"></p>
+    </form>
+  </section>
   <script src="script/login.js"></script>
 </body>
 </html>
