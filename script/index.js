@@ -1,35 +1,53 @@
-let token = ""
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-function login() {
-  const email = document.getElementById("email").value
-  const password = document.getElementById("password").value
+  const fullName = document.querySelector('input[placeholder="Nombre completo"]').value.trim();
+  const email = document.querySelector('input[placeholder="Correo electrónico"]').value.trim();
+  const password = document.querySelector('input[placeholder="Contraseña"]').value;
 
-  fetch("http://localhost:3000/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => res.json())
-    .then(data => {
-      token = data.token
-      alert("Login exitoso")
-    })
-    .catch(() => alert("Error al iniciar sesión"))
-}
+  if (!fullName || !email || !password) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
 
-function getServices() {
-  fetch("http://localhost:3000/api/services", {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-    .then(res => res.json())
-    .then(data => {
-      const ul = document.getElementById("services")
-      ul.innerHTML = ""
-      data.forEach(s => {
-        const li = document.createElement("li")
-        li.textContent = `${s.title} - ${s.type}`
-        ul.appendChild(li)
-      })
-    })
-    .catch(() => alert("Acceso denegado"))
-}
+  const [firstName, ...lastNameParts] = fullName.split(" ");
+  const lastName = lastNameParts.join(" ") || "";
+
+  const data = {
+    username: email.split("@")[0],
+    email,
+    passwordHash: password,
+    profile: {
+      firstName,
+      lastName,
+      location: {
+        city: "Lima",
+        country: "Perú"
+      },
+      bio: "",
+      avatarUrl: ""
+    },
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
+
+  try {
+    const res = await fetch("http://20.49.48.222:3000/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      alert("✅ Usuario registrado con éxito");
+      document.getElementById("registerForm").reset();
+    } else {
+      alert("❌ Error al registrar: " + result.error);
+    }
+  } catch (error) {
+    console.error("Error al conectar:", error);
+    alert("Error de red o del servidor.");
+  }
+});
