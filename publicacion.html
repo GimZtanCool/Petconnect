@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Publicación</title>
+    <link rel="stylesheet" href="styles/publicacion.css">
+</head>
+<body>
+    <h1>Crear una nueva publicación</h1>
+    <form id="form-publicacion">
+        <label for="authorId">ID del autor:</label>
+        <input type="text" id="authorId" name="authorId" required><br><br>
+
+        <label for="petId">ID de la mascota (opcional):</label>
+        <input type="text" id="petId" name="petId"><br><br>
+
+        <label for="content">Contenido:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="media">Medios (imágenes o videos):</label>
+        <input type="file" id="media" name="media" multiple accept="image/*,video/*"><br><br>
+
+        <label for="tags">Etiquetas (separadas por coma):</label>
+        <input type="text" id="tags" name="tags"><br><br>
+
+        <label for="locationName">Ubicación (nombre):</label>
+        <input type="text" id="locationName" name="locationName"><br><br>
+
+        <label for="locationCoordinates">Coordenadas (latitud, longitud):</label>
+        <input type="text" id="locationCoordinates" name="locationCoordinates" placeholder="Ej: 19.4326,-99.1332"><br><br>
+
+        <button type="submit">Publicar</button>
+    </form>
+
+    <script src="scripts/publicacion.js"></script>
+</body>
+</html>
