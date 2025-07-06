@@ -20,7 +20,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     if (res.ok) {
       alert("🎉 Inicio de sesión exitoso");
-      window.location.href = "index.html"; // o dashboard.html
+      window.location.href = "feed.html"; // o dashboard.html
     } else {
       document.getElementById("errorMsg").textContent = result.error || "Credenciales inválidas.";
     }

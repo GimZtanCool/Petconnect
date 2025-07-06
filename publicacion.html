@@ -1,37 +1,542 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Crear Publicación</title>
-    <link rel="stylesheet" href="styles/publicacion.css">
+  <meta charset="UTF-8">
+  <title>Feed de Publicaciones</title>
+  <link rel="stylesheet" href="styles/publicacion.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff5f9;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8em 2em;
+      background-color: #fce4ec;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #d81b60;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1em;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      background-color: #f06292;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #ec407a;
+    }
+
+    .feed-container {
+      max-width: 600px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+    }
+
+    .post-card {
+      background: #fff0f6;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+      padding: 1.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f8c2d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #ad1457;
+      font-size: 1.3em;
+    }
+
+    .post-media img, .post-media video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 0.5em;
+    }
+
+    .post-tags {
+      color: #e91e63;
+      font-size: 0.95em;
+    }
+
+    .post-footer {
+      display: flex;
+      gap: 1.5em;
+      align-items: center;
+      font-size: 0.95em;
+      color: #ad1457;
+    }
+
+    .feed-container {
+  max-width: 650px;
+  margin: 3em auto;
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.post-card {
+  background: #ffe4ec;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(233, 30, 99, 0.12);
+  padding: 1.5em 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  transition: transform 0.2s;
+}
+.post-card:hover {
+  transform: translateY(-4px);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f8c2d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #ad1457;
+  font-size: 1.3em;
+  flex-shrink: 0;
+}
+
+.timestamp {
+  font-size: 0.9em;
+  color: #ad1457;
+}
+
+.post-media img, .post-media video {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 0.5em;
+}
+
+.post-content {
+  font-size: 1.1em;
+  line-height: 1.4;
+  color: #444;
+}
+
+.post-tags {
+  color: #e91e63;
+  font-size: 0.9em;
+}
+
+.post-footer {
+  display: flex;
+  gap: 1.5em;
+  align-items: center;
+  font-size: 0.95em;
+  color: #ad1457;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  color: #e91e63;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+}
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2em;
+  padding: 2em;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.post-card {
+  background: #ffe0ef;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(233, 30, 99, 0.1);
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+.post-card:hover {
+  transform: scale(1.02);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.avatar {
+  background: #f8bbd0;
+  color: #880e4f;
+  font-weight: bold;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+}
+
+.timestamp {
+  font-size: 0.85em;
+  color: #ad1457;
+}
+
+.post-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 0.8em;
+}
+
+.post-content {
+  font-size: 1em;
+  margin-bottom: 0.6em;
+  color: #4a4a4a;
+}
+
+.post-tags {
+  font-size: 0.9em;
+  color: #e91e63;
+  margin-bottom: 0.8em;
+}
+
+.post-footer {
+  display: flex;
+  gap: 1em;
+  font-size: 0.9em;
+  color: #880e4f;
+  align-items: center;
+}
+
+.like-btn {
+  border: none;
+  background: none;
+  color: #e91e63;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.new-post-section {
+  background-color: #ffe0ec;
+  padding: 2em;
+  margin: 1.5em auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.1);
+  max-width: 700px;
+  text-align: center;
+}
+
+.new-post-section h2 {
+  color: #e91e63;
+  margin-bottom: 1em;
+  font-size: 1.5em;
+}
+
+#postForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#postForm textarea,
+#postForm input {
+  padding: 0.8em;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 1em;
+}
+
+.btn-post {
+  background-color: #e91e63;
+  color: white;
+  padding: 0.8em;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-post:hover {
+  background-color: #c2185b;
+}
+
+  </style>
 </head>
 <body>
-    <h1>Crear una nueva publicación</h1>
-    <form id="form-publicacion">
-        <label for="authorId">ID del autor:</label>
-        <input type="text" id="authorId" name="authorId" required><br><br>
 
-        <label for="petId">ID de la mascota (opcional):</label>
-        <input type="text" id="petId" name="petId"><br><br>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🐾 PetConnect</div>
+    <div class="nav-links">
+      <a href="feed.html">Pets</a>
+      <a href="publicacion.html" style="background-color: #880e4f;">Publicaciones</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="login.html">Cerrar sesión</a>
+    </div>
+  </nav>
+    <section class="new-post-section">
+    <h2>Crear nueva publicación 📝</h2>
+    <form id="postForm">
+        <textarea name="content" placeholder="¿Qué quieres compartir hoy?" required></textarea>
 
-        <label for="content">Contenido:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
-
-        <label for="media">Medios (imágenes o videos):</label>
-        <input type="file" id="media" name="media" multiple accept="image/*,video/*"><br><br>
-
-        <label for="tags">Etiquetas (separadas por coma):</label>
-        <input type="text" id="tags" name="tags"><br><br>
-
-        <label for="locationName">Ubicación (nombre):</label>
-        <input type="text" id="locationName" name="locationName"><br><br>
-
-        <label for="locationCoordinates">Coordenadas (latitud, longitud):</label>
-        <input type="text" id="locationCoordinates" name="locationCoordinates" placeholder="Ej: 19.4326,-99.1332"><br><br>
-
-        <button type="submit">Publicar</button>
+        <input type="url" name="mediaUrl" placeholder="URL de imagen o video (opcional)">
+        
+        <input type="text" name="tags" placeholder="Etiquetas separadas por coma (ej: perro, parque)">
+        
+        <button type="submit" class="btn-post">Publicar</button>
     </form>
+    </section>
 
-    <script src="scripts/publicacion.js"></script>
+  <div class="feed-grid">
+  <!-- POST 1 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="avatar">L</div>
+      <div>
+        <div><strong>@lola_paws</strong></div>
+        <div class="timestamp">Hace 2 horas</div>
+      </div>
+    </div>
+    <div class="post-media">
+      <img src="https://thumbs.dreamstime.com/b/perrito-feliz-7133701.jpg" alt="Perrita feliz">
+    </div>
+    <div class="post-content">Paseando con Lola por el malecón. ¡Ella ama el viento! 🐕🌬️</div>
+    <div class="post-tags">#paseo #perros #malecón</div>
+    <div class="post-footer">
+      <button class="like-btn">❤️ 32</button>
+      <span>4 comentarios</span>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="avatar">J</div>
+      <div>
+        <div><strong>@javi_fishfan</strong></div>
+        <div class="timestamp">Hace 5 h</div>
+      </div>
+    </div>
+    <div class="post-media">
+      <img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13" alt="Acuario">
+    </div>
+    <div class="post-content">Tita, mi gatita, interactuando con la naturaleza <3 </div>
+    <div class="post-tags">#naturaleza #gatos #mariposa</div>
+    <div class="post-footer">
+      <button class="like-btn">❤️ 19</button>
+      <span>2 comentarios</span>
+    </div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="avatar">E</div>
+      <div>
+        <div><strong>@emma_bunnies</strong></div>
+        <div class="timestamp">Hace 1 día</div>
+      </div>
+    </div>
+    <div class="post-media">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Ni2rtRLsb_-d3Vr2qWZjg4F0_iXKR08pW-FNg-pyS2L-lRL8zJxrklXUCbcg3wUpi0M&usqp=CAU" alt="Conejo">
+    </div>
+    <div class="post-content">Tobi está creciendo tan rápido 😍🐇</div>
+    <div class="post-tags">#conejos #dulzura</div>
+    <div class="post-footer">
+      <button class="like-btn">❤️ 22</button>
+      <span>3 comentarios</span>
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="avatar">S</div>
+      <div>
+        <div><strong>@sam_grooming</strong></div>
+        <div class="timestamp">Hace 3 días</div>
+      </div>
+    </div>
+    <div class="post-media">
+      <img src="https://images.unsplash.com/photo-1558788353-f76d92427f16" alt="Spa para perros">
+    </div>
+    <div class="post-content">Un día de spa para Rocky 🧼🐾 ¡Miren su carita feliz!</div>
+    <div class="post-tags">#grooming #felicidad #spa</div>
+    <div class="post-footer">
+      <button class="like-btn">❤️ 45</button>
+      <span>7 comentarios</span>
+    </div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="avatar">C</div>
+      <div>
+        <div><strong>@carmen_birds</strong></div>
+        <div class="timestamp">Hace 12 h</div>
+      </div>
+    </div>
+    <div class="post-media">
+      <img src="https://www.mascotarios.org/wp-content/uploads/2012/02/Catita-Churica-1.jpg" alt="Perico feliz">
+    </div>
+    <div class="post-content">Coco aprendió a decir “Hola” 🐦🗣️</div>
+    <div class="post-tags">#aves #hablando #loro</div>
+    <div class="post-footer">
+      <button class="like-btn">❤️ 27</button>
+      <span>5 comentarios</span>
+    </div>
+  </div>
+
+  <!-- POST 6 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="avatar">D</div>
+    <div>
+      <div><strong>@daniela_dogmom</strong></div>
+      <div class="timestamp">Hace 8 horas</div>
+    </div>
+  </div>
+  <div class="post-media">
+    <img src="https://mypetpanama.com/cdn/shop/products/226873e067b868537ab236ad5ad7902cb1fa8482__27609.1653582728.jpg?v=1654571153" alt="Perro con gorro de cumpleaños">
+  </div>
+  <div class="post-content">
+    ¡Feliz cumpleaños, Max! 🎉🐶 Hoy cumple 4 años y lo celebramos con pastel para perros.
+  </div>
+  <div class="post-tags">#cumpleaños #doglover #celebración</div>
+  <div class="post-footer">
+    <button class="like-btn">❤️ 40</button>
+    <span>6 comentarios</span>
+  </div>
+</div>
+
+<!-- POST 7 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="avatar">T</div>
+    <div>
+      <div><strong>@thiago_petlife</strong></div>
+      <div class="timestamp">Hace 2 días</div>
+    </div>
+  </div>
+  <div class="post-media">
+    <img src="https://munisanmiguel.gob.pe/wp-content/uploads/2018/11/5603852e-ee8e-4681-adfa-075959b61299.jpg" alt="Mascota en veterinaria">
+  </div>
+  <div class="post-content">
+    Revisando la salud de Luna. Todo en orden gracias a @VetCare 🩺🐕
+  </div>
+  <div class="post-tags">#salud #veterinaria #luna</div>
+  <div class="post-footer">
+    <button class="like-btn">❤️ 18</button>
+    <span>2 comentarios</span>
+  </div>
+</div>
+
+<!-- POST 8 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="avatar">B</div>
+    <div>
+      <div><strong>@beto_walks</strong></div>
+      <div class="timestamp">Hace 3 días</div>
+    </div>
+  </div>
+  <div class="post-media">
+    <img src="https://st4.depositphotos.com/1004713/26546/i/450/depositphotos_265468298-stock-photo-dog-walker-enjoying-with-dogs.jpg" alt="Paseador con varios perros">
+  </div>
+  <div class="post-content">
+    Hermoso día de caminatas por Miraflores con esta pandilla perruna. 🐕🐩🐕‍🦺
+  </div>
+  <div class="post-tags">#paseador #dogsquad #miraflores</div>
+  <div class="post-footer">
+    <button class="like-btn">❤️ 36</button>
+    <span>5 comentarios</span>
+  </div>
+</div>
+
+<!-- POST 9 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="avatar">F</div>
+    <div>
+      <div><strong>@fer_felinos</strong></div>
+      <div class="timestamp">Hace 1 semana</div>
+    </div>
+  </div>
+  <div class="post-media">
+    <img src="https://i.pinimg.com/564x/f8/c2/f6/f8c2f63ffa6446110d61bac702165621.jpg" alt="Gatito en ventana">
+  </div>
+  <div class="post-content">
+    Mi pequeño Leo adora mirar por la ventana mientras llueve 🌧️🐱
+  </div>
+  <div class="post-tags">#gatitos #lluvia #tranquilidad</div>
+  <div class="post-footer">
+    <button class="like-btn">❤️ 52</button>
+    <span>9 comentarios</span>
+  </div>
+</div>
+
+</div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 1em; background-color: #fce4ec; color: #d81b60;">
+      <p>&copy; 2023 PetConnect. Todos los derechos reservados.</p>
+      <p>Desarrollado por Grupo 1</p>
+  </footer>
+  <script src="scripts/feed.js"></script>
 </body>
 </html>

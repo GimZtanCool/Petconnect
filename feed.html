@@ -1,121 +1,227 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Feed de Publicaciones</title>
-    <link rel="stylesheet" href="styles/publicacion.css">
-    <style>
-        .feed-container {
-            max-width: 600px;
-            margin: 40px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2em;
-        }
-        .post-card {
-            background: #fff0f6;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
-            padding: 1.5em 2em;
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-        }
-        .post-header {
-            display: flex;
-            align-items: center;
-            gap: 1em;
-        }
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #f8c2d4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #ad1457;
-            font-size: 1.3em;
-        }
-        .post-media img, .post-media video {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 0.5em;
-        }
-        .post-tags {
-            color: #e91e63;
-            font-size: 0.95em;
-        }
-        .post-footer {
-            display: flex;
-            gap: 1.5em;
-            align-items: center;
-            font-size: 0.95em;
-            color: #ad1457;
-        }
-        .like-btn {
-            background: none;
-            border: none;
-            color: #e91e63;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1em;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Explora Mascotas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    h1 {
+      color: #d81b60;
+      text-align: center;
+      margin-top: 1em;
+    }
+    body {
+      background: #ffeaf2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2em;
+    }
+
+    header {
+      background-color: #fce4ec;
+      width: 100%;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .logo {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #d81b60;
+    }
+    .nav-links a {
+      background-color: #f06292;
+      color: white;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 20px;
+      margin-left: 0.5em;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      background-color: #ec407a;
+    }
+
+    .card-container {
+      background: #fff0f6;
+      width: 340px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      margin: 2em auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5em;
+      position: relative;
+    }
+    .card-container img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1em;
+    }
+    .card-content h3 {
+      color: #d81b60;
+      margin-bottom: 0.5em;
+    }
+    .card-content p {
+      font-size: 0.95em;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .card-actions {
+      display: flex;
+      gap: 1.5em;
+    }
+    .btn-swipe {
+      background-color: white;
+      border: 2px solid #e91e63;
+      color: #e91e63;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-swipe:hover {
+      background-color: #fce4ec;
+    }
+
+    .form-section {
+      background: #fff0f6;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.1);
+    }
+    .form-section h2 {
+      color: #d81b60;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+    .form-section form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    .form-section input,
+    .form-section textarea {
+      padding: 0.8em;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+    .form-section button {
+      background-color: #e91e63;
+      color: white;
+      padding: 0.8em;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .form-section button:hover {
+      background-color: #c2185b;
+    }
+  </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Feed de Publicaciones</h1>
-    <div class="feed-container">
-        <!-- Ejemplo de publicación -->
-        <div class="post-card">
-            <div class="post-header">
-                <div class="avatar">A</div>
-                <div>
-                    <div><strong>@ana_pets</strong></div>
-                    <div style="font-size:0.9em; color:#ad1457;">Hace 2 horas</div>
-                </div>
-            </div>
-            <div class="post-media">
-                <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=400&q=80" alt="Mascota feliz">
-            </div>
-            <div class="post-content">
-                ¡Conocí a este perrito adorable hoy en el parque! 🐶💖
-            </div>
-            <div class="post-tags">
-                #mascotas #parque #felicidad
-            </div>
-            <div class="post-footer">
-                <button class="like-btn">❤️ 12</button>
-                <span>3 comentarios</span>
-                <span>Ubicación: Parque Central</span>
-            </div>
-        </div>
-        <!-- Puedes duplicar el bloque .post-card para más publicaciones -->
-        <div class="post-card">
-            <div class="post-header">
-                <div class="avatar">M</div>
-                <div>
-                    <div><strong>@mario_catlover</strong></div>
-                    <div style="font-size:0.9em; color:#ad1457;">Hace 10 minutos</div>
-                </div>
-            </div>
-            <div class="post-media">
-                <video controls src="https://www.w3schools.com/html/mov_bbb.mp4" style="max-height:200px;"></video>
-            </div>
-            <div class="post-content">
-                ¡Mi gato aprendió un nuevo truco! 😺✨
-            </div>
-            <div class="post-tags">
-                #gatos #trucos #diversión
-            </div>
-            <div class="post-footer">
-                <button class="like-btn">❤️ 7</button>
-                <span>1 comentario</span>
-                <span>Ubicación: Casa</span>
-            </div>
-        </div>
+  <header>
+    <div class="logo">🐾 PetConnect</div>
+    <div class="nav-links">
+      <a href="feed.html" style="background-color: #880e4f;">Mascotas</a>
+      <a href="publicacion.html">Publicaciones</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="login.html">Cerrar sesión</a>
     </div>
-    <script src="scripts/feed.js"></script>
+  </header>
+
+  <h1>Mis mascotas</h1>
+    <section class="form-section">
+    <h2>Agrega tu mascota 🐶</h2>
+    <form id="addPetForm">
+      <input type="text" name="name" placeholder="Nombre de la mascota" required>
+      <input type="text" name="age" placeholder="Edad (ej. 2 años)" required>
+      <input type="url" name="image" placeholder="URL de la imagen" required>
+      <textarea name="description" placeholder="Descripción de la mascota" required></textarea>
+      <button type="submit">Agregar</button>
+    </form>
+  </section>
+  <h1>Explora Mascotas para Adoptar o Socializar</h1>
+  <div class="card-container" id="petCard">
+    <img src="https://cdn.pixabay.com/photo/2018/04/16/13/05/beagle-3324610_1280.jpg" alt="Mascota">
+    <div class="card-content">
+      <h3>Luna, 2 años</h3>
+      <p>Luna es una perrita juguetona y amorosa que busca un nuevo hogar lleno de cariño.</p>
+    </div>
+    <div class="card-actions">
+      <button class="btn-swipe" onclick="nextPet(false)">❌</button>
+      <button class="btn-swipe" onclick="nextPet(true)">❤️</button>
+    </div>
+  </div>
+
+
+  <script>
+    const pets = [
+      {
+        name: 'Luna', age: '2 años',
+        image: 'https://cdn.pixabay.com/photo/2018/04/16/13/05/beagle-3324610_1280.jpg',
+        desc: 'Luna es una perrita juguetona y amorosa que busca un nuevo hogar lleno de cariño.'
+      }
+      ,{
+        name: 'Manchas', age: '5 años',
+        image: 'https://i.pinimg.com/236x/e9/5f/94/e95f94dfb24accd8c387b3d1b567b08c.jpg',
+        desc: 'Manchas es una perrita tranquila y amigable, busca un hogar donde pueda relajarse y recibir cariño.'
+      }
+    ];
+
+    let currentIndex = 0;
+    const petCard = document.getElementById("petCard");
+
+    function nextPet(liked) {
+      currentIndex++;
+      if (currentIndex >= pets.length) {
+        petCard.innerHTML = '<h3>No hay más mascotas por hoy 😔</h3>';
+        return;
+      }
+      const pet = pets[currentIndex];
+      petCard.innerHTML = `
+        <img src="${pet.image}" alt="Mascota">
+        <div class="card-content">
+          <h3>${pet.name}, ${pet.age}</h3>
+          <p>${pet.desc}</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-swipe" onclick="nextPet(false)">❌</button>
+          <button class="btn-swipe" onclick="nextPet(true)">❤️</button>
+        </div>
+      `;
+    }
+
+    document.getElementById("addPetForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const newPet = {
+        name: form.name.value,
+        age: form.age.value,
+        image: form.image.value,
+        desc: form.description.value
+      };
+      pets.push(newPet);
+      alert("Mascota agregada. Aparecerá al continuar navegando.");
+      form.reset();
+    });
+  </script>
 </body>
 </html>
